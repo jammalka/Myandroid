@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -82,7 +83,9 @@ fun loginScreen(navController:NavController){
             label={ Text("Enter Email") },
             placeholder ={ Text("Please enter your Email") },
             leadingIcon ={ Icon(Icons.Default.Email, contentDescription ="Email icon") },
-            modifier = Modifier.fillMaxWidth(0.8f))
+            modifier = Modifier.fillMaxWidth(0.8f),
+            textStyle = TextStyle(color=Color.Blue)
+        )
         OutlinedTextField(value = password,
             onValueChange = {password=it},
             label={ Text("Enter Password") },
@@ -90,6 +93,7 @@ fun loginScreen(navController:NavController){
             leadingIcon ={ Icon(Icons.Default.Lock , contentDescription ="Lock icon") },
             visualTransformation= PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f),
+            textStyle = TextStyle(color=Color.Blue),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password))
         Spacer(modifier = Modifier.height(25.dp))
         val context = LocalContext.current
