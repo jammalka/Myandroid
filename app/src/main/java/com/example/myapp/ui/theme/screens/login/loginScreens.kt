@@ -80,16 +80,16 @@ fun loginScreen(navController:NavController){
             contentScale = ContentScale.Fit)
         OutlinedTextField(value = email,
             onValueChange = {email  =it},
-            label={ Text("Enter Email") },
-            placeholder ={ Text("Please enter your Email") },
+            label={ Text("Enter Email",color=Color.Red) },
+            placeholder ={ Text("Please enter your Email",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Email, contentDescription ="Email icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
             textStyle = TextStyle(color=Color.Blue)
         )
         OutlinedTextField(value = password,
             onValueChange = {password=it},
-            label={ Text("Enter Password") },
-            placeholder ={ Text("Please enter your password") },
+            label={ Text("Enter Password",color=Color.Red) },
+            placeholder ={ Text("Please enter your password",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Lock , contentDescription ="Lock icon") },
             visualTransformation= PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f),

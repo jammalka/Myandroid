@@ -85,35 +85,31 @@ fun registerScreen(navController:NavController){
 
         OutlinedTextField(value = username,
             onValueChange = {username=it},
-            label={ Text("Enter Username") },
-            placeholder ={ Text("Please enter username") },
+            label={ Text("Enter Username",color=Color.Red) },
+            placeholder ={ Text("Please enter username",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Person, contentDescription ="Person icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
             textStyle = TextStyle(color=Color.Blue))
 
         OutlinedTextField(value = fullname,
             onValueChange = {fullname=it},
-            label={ Text("Enter your full name") },
-            placeholder ={ Text("Please enter full name") },
+            label={ Text("Enter your full name",color=Color.Red) },
+            placeholder ={ Text("Please enter full name",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Person, contentDescription ="Person icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
-            textStyle = TextStyle(color=Color.Blue)
-
-        )
-
-
+            textStyle = TextStyle(color=Color.Blue))
         OutlinedTextField(value = email,
             onValueChange = {email=it},
-            label = { Text("Enter Email") },
-            placeholder ={ Text("Please enter email") },
+            label = { Text("Enter Email",color=Color.Red) },
+            placeholder ={ Text("Please enter email",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Email, contentDescription ="Email icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
             textStyle = TextStyle(color=Color.Blue),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email))
         OutlinedTextField(value = password,
             onValueChange = {password=it},
-            label={ Text("Enter Password") },
-            placeholder ={ Text("Please enter your password") },
+            label={ Text("Enter Password",color=Color.Red) },
+            placeholder ={ Text("Please enter your password",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Lock , contentDescription ="Lock icon") },
             visualTransformation= PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f),
@@ -121,8 +117,8 @@ fun registerScreen(navController:NavController){
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password))
         OutlinedTextField(value = confirmpassword,
             onValueChange = {confirmpassword=it},
-            label = { Text("Confirm password") },
-            placeholder ={ Text("Please confirm password") },
+            label = { Text("Confirm password",color=Color.Red) },
+            placeholder ={ Text("Please confirm password",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Lock, contentDescription ="Lock icon") },
             visualTransformation=PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f),
