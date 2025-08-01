@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,6 +58,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.myapp.R
+import com.example.myapp.navigation.ROUTE_PATIENT
+import java.time.format.TextStyle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -113,7 +116,8 @@ fun DashboardScreen(navController: NavController) {
                 ))
             Row (modifier = Modifier.wrapContentWidth()){
                 Card(
-                    modifier = Modifier.padding(10.dp).clickable {  },
+                    modifier = Modifier.padding(10.dp).clickable { navController.navigate(
+                        ROUTE_PATIENT) },
                     shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(Color.White)
                 ){ Box(modifier = Modifier.height(100.dp).padding(20.dp),
@@ -135,7 +139,7 @@ fun DashboardScreen(navController: NavController) {
                     colors = CardDefaults.cardColors(Color.White)
                 ){ Box(modifier = Modifier.height(100.dp).padding(20.dp),
                     contentAlignment = Alignment.Center){
-                    Text(text = "Add Patient")} }
+                    Text(text = "Doctors Information")} }
                 Spacer(modifier = Modifier.width(30.dp))
                 Card(
                     modifier = Modifier.padding(10.dp).clickable {  },
@@ -143,7 +147,7 @@ fun DashboardScreen(navController: NavController) {
                     colors = CardDefaults.cardColors(Color.White)
                 ){ Box(modifier = Modifier.height(100.dp).padding(20.dp),
                     contentAlignment = Alignment.Center){
-                    Text(text = "View Patients")} }
+                    Text(text = "Patients Information")} }
             }
         }
     }
