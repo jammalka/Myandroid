@@ -59,6 +59,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.myapp.R
 import com.example.myapp.navigation.ROUTE_PATIENT
+import com.example.myapp.navigation.ROUTE_VIEW_PATIENT
 import java.time.format.TextStyle
 
 
@@ -88,9 +89,9 @@ fun DashboardScreen(navController: NavController) {
     })
     { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            Image(painter = painterResource( R.drawable.banking),
+            Image(painter = painterResource( R.drawable.joy),
                 contentDescription = "Background Image",
-                contentScale =ContentScale.FillBounds)
+                contentScale =ContentScale.Crop)
         }
         Column(modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally){
@@ -116,8 +117,8 @@ fun DashboardScreen(navController: NavController) {
                 ))
             Row (modifier = Modifier.wrapContentWidth()){
                 Card(
-                    modifier = Modifier.padding(10.dp).clickable { navController.navigate(
-                        ROUTE_PATIENT) },
+                    modifier = Modifier.padding(10.dp).clickable {navController.navigate(
+                        ROUTE_PATIENT)  },
                     shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(Color.White)
                 ){ Box(modifier = Modifier.height(100.dp).padding(20.dp),
@@ -125,7 +126,8 @@ fun DashboardScreen(navController: NavController) {
                     Text(text = "Add Patient")} }
                 Spacer(modifier = Modifier.width(30.dp))
                 Card(
-                    modifier = Modifier.padding(10.dp).clickable {  },
+                    modifier = Modifier.padding(10.dp).clickable {navController.navigate(
+                        ROUTE_VIEW_PATIENT)  },
                     shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(Color.White)
                 ){ Box(modifier = Modifier.height(100.dp).padding(20.dp),

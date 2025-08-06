@@ -30,7 +30,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -60,11 +63,12 @@ fun registerScreen(navController:NavController){
     var fullname by remember { mutableStateOf("") }
     val authViewModel: AuthViewModel = viewModel()
     Box{
-        Image(painter = painterResource(id =R.drawable.banking),
+        Image(painter = painterResource(id =R.drawable.warm),
             contentDescription = "Register Background",
-            contentScale = ContentScale.FillBounds)
+            contentScale = ContentScale.Crop)
 
     }
+
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
@@ -82,6 +86,24 @@ fun registerScreen(navController:NavController){
             modifier = Modifier
                 .fillMaxWidth().height(80.dp),
             contentScale = ContentScale.Fit)
+        val animatedAlpha = 0.0f
+        Text(
+            text = "Hospital",
+            style = TextStyle(
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Medium,
+                fontStyle = FontStyle.Italic,
+                color = Color.White.copy(alpha = animatedAlpha),
+                shadow = Shadow(
+                    color = Color.White,
+                    offset = Offset(1f, 1f),
+                    blurRadius = 2f
+                )
+            ),
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .align(Alignment.CenterHorizontally)
+        )
 
         OutlinedTextField(value = username,
             onValueChange = {username=it},

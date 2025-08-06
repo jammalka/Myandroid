@@ -3,8 +3,10 @@ package com.example.myapp.data
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapp.models.Patient
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,5 +72,63 @@ class PatientViewModel:ViewModel() {
 
 
     }
+    private val _patients= mutableStateListOf<Patient>()
+    val patients:List<Patient> = _patients
+    fun fetchPatients(context: Context){
+        val ref =FirebaseDatabase.getInstance().getReference("Patients")
+        ref.get().addOnSuccessListener{snapshot->
+           _patients.clear()
+            for(child in snapshot.children){
+                val patient=child.getValue(Patient::class.java)
+                patient?.let{ _patients.add(it)}
+            }
+        }.addOnFailureListener {
+            Toast.makeText(context, " Failed to load patients. ", Toast.LENGTH_LONG).show()
 
-}
+        }
+    }
+    fun deletePatient(patientId:String,context: Context){
+        val ref= FirebaseDatabase.getInstance()
+            .getReference("Patients").child(patientId)
+        ref.removeValue().addOnSuccessListener {
+            _patients.removeAll{it.id==patientId}}.addOnFailureListener{
+            Toast.makeText(context, " Patient not deleted. ", Toast.LENGTH_LONG).show()
+        }
+        }
+    fun updatePatient(patientId: String,
+                      imageUri: Uri?,
+                      name: String,
+                      age: String,
+                      gender: String,
+                      phone_number: String,
+                      nationality: String,
+                      diagnosis: String,
+                      context: Context){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val imageUrl=imageUri?.let { uploadToCloudinary(context,it) }
+                val updatePatient= mapOf(
+                    "id" to patientId,
+                    "name" to name,
+                    "age" to age,
+                    "gender" to gender,
+                    "nationality" to  nationality,
+                    "phone_number" to phone_number,
+                    "diagnosis" to diagnosis,
+                    "imageUrl" to imageUrl
+                )
+                val ref =FirebaseDatabase.getInstance().getReference("Patients")
+                    .child(patientId)
+                ref.setValue(updatePatient).await()
+                fetchPatients(context)
+                withContext(Dispatchers.Main){
+                    Toast.makeText(context, " PatientS Updated Successfully. ", Toast.LENGTH_LONG).show()
+                }
+            }catch (e:Exception){
+                withContext(Dispatchers.Main){
+                    Toast.makeText(context, "Failed to Update Patient  ", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+    }

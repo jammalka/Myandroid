@@ -28,13 +28,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -56,9 +59,9 @@ fun loginScreen(navController:NavController){
     val authViewModel: AuthViewModel = viewModel()
 
     Box{
-        Image(painter = painterResource(id =R.drawable.login),
+        Image(painter = painterResource(id =R.drawable.joy),
             contentDescription = "Register Background",
-            contentScale = ContentScale.FillBounds)
+            contentScale = ContentScale.Crop)
 
     }
     Column(modifier = Modifier.fillMaxSize(),
@@ -66,18 +69,37 @@ fun loginScreen(navController:NavController){
         horizontalAlignment = Alignment.CenterHorizontally){
         Text(text ="LOGIN HERE",
             fontSize=40.sp,
-            fontFamily= FontFamily.Monospace,
-            fontStyle= FontStyle.Italic,
+            fontFamily= FontFamily.SansSerif,
             color= Color.White,
             textAlign= TextAlign.Center,
             modifier= Modifier
                 .fillMaxWidth()
-                .padding(5.dp))
+                .padding(5.dp),
+            )
+
         Spacer(modifier = Modifier.height(35.dp))
         Image(painter = painterResource(id= R.drawable.logo), contentDescription = "image logo",
             modifier = Modifier
                 .fillMaxWidth().height(80.dp),
             contentScale = ContentScale.Fit)
+        val animatedAlpha = 0.0f
+        Text(
+            text = "Hospital",
+            style = TextStyle(
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Medium,
+                fontStyle = FontStyle.Italic,
+                color = Color.White.copy(alpha = animatedAlpha),
+                shadow = Shadow(
+                    color = Color.Black,
+                    offset = Offset(1f, 1f),
+                    blurRadius = 2f
+                )
+            ),
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .align(Alignment.CenterHorizontally)
+        )
         OutlinedTextField(value = email,
             onValueChange = {email  =it},
             label={ Text("Enter Email",color=Color.Red) },
