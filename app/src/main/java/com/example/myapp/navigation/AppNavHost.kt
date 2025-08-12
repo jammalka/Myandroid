@@ -7,7 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.myapp.ui.theme.screens.SplashScreen
 import com.example.myapp.ui.theme.screens.dashboard.DashboardScreen
+import com.example.myapp.ui.theme.screens.login.composable
 import com.example.myapp.ui.theme.screens.login.loginScreen
 import com.example.myapp.ui.theme.screens.patient.AddPatientScreen
 import com.example.myapp.ui.theme.screens.patient.UpdatePatientScreen
@@ -17,6 +19,8 @@ import com.example.myapp.ui.theme.screens.register.registerScreen
 @Composable
 fun AppNavHost(navController:NavHostController= rememberNavController(),startDestination:String= ROUTE_DASHBOARD) {
     NavHost(navController = navController, startDestination = startDestination) {
+       composable(ROUTE_SPLASH)
+         { SplashScreen { navController.navigate(ROUTE_REGISTER){popUpTo(ROUTE_SPLASH){inclusive=true} } } }
         composable(ROUTE_REGISTER) {
             registerScreen(navController)
         }
@@ -28,6 +32,7 @@ fun AppNavHost(navController:NavHostController= rememberNavController(),startDes
         { AddPatientScreen(navController) }
         composable(ROUTE_VIEW_PATIENT)
         { viewPatientScreen((navController)) }
+
         composable(
             ROUTE_UPDATE_PATIENT,
             arguments = listOf(navArgument("patientId") { type = NavType.StringType })

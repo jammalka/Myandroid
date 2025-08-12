@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -48,6 +50,7 @@ import coil.compose.AsyncImage
 import com.example.myapp.R
 import com.example.myapp.data.PatientViewModel
 import com.example.myapp.models.Patient
+import com.example.myapp.navigation.ROUTE_DASHBOARD
 import com.example.myapp.navigation.ROUTE_VIEW_PATIENT
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
@@ -74,6 +77,7 @@ fun UpdatePatientScreen(navController: NavController,patientId:String){
     var nationality by remember { mutableStateOf(patient!!.nationality?:"") }
     var age by remember { mutableStateOf(patient!!.age?:"") }
     var phone_number by remember { mutableStateOf(patient!!.phone_number?:"") }
+    var next_of_kin by remember { mutableStateOf("") }
     var diagnosis by remember { mutableStateOf(patient!!.diagnosis?:"") }
 
     val imageUri = remember() { mutableStateOf <Uri?>(null) }
@@ -87,7 +91,7 @@ fun UpdatePatientScreen(navController: NavController,patientId:String){
             contentScale = ContentScale.FillBounds)
 
     }
-    Column (modifier = Modifier.fillMaxSize().padding(15.dp), horizontalAlignment = Alignment.CenterHorizontally){
+    Column (modifier = Modifier.fillMaxSize().padding(15.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = "UPDATE PATIENT",
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
@@ -145,7 +149,14 @@ fun UpdatePatientScreen(navController: NavController,patientId:String){
             modifier = Modifier.fillMaxWidth(),
             textStyle = TextStyle(color=Color.White)
         )
-
+        OutlinedTextField(
+            value = next_of_kin,
+            onValueChange = {  next_of_kin = it },
+            label={ Text("Enter Your Next Of Kin",color=Color.Red) },
+            placeholder ={ Text("Please enter next of kin",color=Color.Red) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = TextStyle(color=Color.White)
+        )
         OutlinedTextField(
             value = diagnosis,
             onValueChange = {  diagnosis = it },
@@ -157,8 +168,22 @@ fun UpdatePatientScreen(navController: NavController,patientId:String){
 
         )
         Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
-            Button(onClick = {navController.navigate(ROUTE_VIEW_PATIENT)}) { Text(text = "GO BACK") }
-            Button(onClick = {}) { Text(text = "UPDATE") }
+            Button(onClick = {
+                patientViewModel.updatePatient(
+                    patientId,
+                    imageUri.value,
+                    name,
+                    gender,
+                    nationality,
+                    age,
+                    phone_number,
+                    next_of_kin ,
+                    diagnosis,
+                    context,
+                    navController,
+                )
+            }) { Text(text = "UPDATE") }
+            Button(onClick = {navController.popBackStack()}) { Text(text = "GO BACK") }
         }
 
     }

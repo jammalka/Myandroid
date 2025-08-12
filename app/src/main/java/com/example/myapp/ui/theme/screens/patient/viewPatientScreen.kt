@@ -82,6 +82,7 @@ fun PatientCard(patient: Patient,
                 Text(text = patient.name?:"No Name" )
                 Text(text = "AGE:${patient.age}", style = MaterialTheme.typography.bodySmall)
                 Text(text = "DIAGNOSIS:${patient.diagnosis}", style = MaterialTheme.typography.bodySmall)
+                Text(text = "NEXT OF KIN:${patient.next_of_kin}", style = MaterialTheme.typography.bodySmall)
 
             }
         }

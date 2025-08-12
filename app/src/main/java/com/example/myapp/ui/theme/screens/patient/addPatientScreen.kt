@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedTextField
@@ -44,6 +46,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.myapp.R
 import com.example.myapp.data.PatientViewModel
+import com.example.myapp.navigation.ROUTE_VIEW_PATIENT
 
 @Composable
 fun AddPatientScreen(navController: NavController){
@@ -51,6 +54,7 @@ fun AddPatientScreen(navController: NavController){
     var gender by remember { mutableStateOf("") }
     var nationality by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
+    var next_of_kin by remember { mutableStateOf("") }
     var phone_number by remember { mutableStateOf("") }
     var diagnosis by remember { mutableStateOf("") }
     val imageUri = rememberSaveable() { mutableStateOf <Uri?>(null) }
@@ -65,7 +69,7 @@ fun AddPatientScreen(navController: NavController){
             contentScale = ContentScale.FillBounds)
 
     }
-    Column (modifier = Modifier.fillMaxSize().padding(15.dp), horizontalAlignment = Alignment.CenterHorizontally){
+    Column (modifier = Modifier.fillMaxSize().padding(15.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = "ADD NEW PATIENT",
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
@@ -88,7 +92,7 @@ fun AddPatientScreen(navController: NavController){
             label={ Text("Enter name", color = Color.Red) },
             placeholder ={ Text("Please enter your name", color = Color.Red) },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color=Color.Black),
+            textStyle = TextStyle(color=Color.White),
 
             )
         OutlinedTextField(
@@ -97,7 +101,7 @@ fun AddPatientScreen(navController: NavController){
             label={ Text("Enter Age",color=Color.Red) },
             placeholder ={ Text("Please enter age",color=Color.Red) },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color=Color.Black),
+            textStyle = TextStyle(color=Color.White),
             )
         OutlinedTextField(
             value = gender,
@@ -105,7 +109,7 @@ fun AddPatientScreen(navController: NavController){
             label={ Text("Enter Gender",color=Color.Red) },
             placeholder ={ Text("Please enter gender",color=Color.Red) },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color=Color.Black),
+            textStyle = TextStyle(color=Color.White),
             )
         OutlinedTextField(
             value = phone_number,
@@ -113,7 +117,7 @@ fun AddPatientScreen(navController: NavController){
             label={ Text("Enter phone number",color=Color.Red) },
             placeholder ={ Text("Please enter your phone number",color=Color.Red) },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color=Color.Black)
+            textStyle = TextStyle(color=Color.White)
             )
         OutlinedTextField(
             value = nationality,
@@ -121,29 +125,40 @@ fun AddPatientScreen(navController: NavController){
             label={ Text("Enter Nationality",color=Color.Red) },
             placeholder ={ Text("Please enter nationality",color=Color.Red) },
             modifier = Modifier.fillMaxWidth(),
-            textStyle = TextStyle(color=Color.Black)
+            textStyle = TextStyle(color=Color.White)
             )
-
+        OutlinedTextField(
+            value = next_of_kin,
+            onValueChange = {  next_of_kin = it },
+            label={ Text("Enter Your Next Of Kin",color=Color.Red) },
+            placeholder ={ Text("Please enter next of kin",color=Color.Red) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = TextStyle(color=Color.White)
+        )
         OutlinedTextField(
             value = diagnosis,
             onValueChange = {  diagnosis = it },
             label={ Text("Enter Diagnosis",color=Color.Red) },
             placeholder ={ Text("Please enter diagnosis",color=Color.Red) },
             modifier = Modifier.fillMaxWidth().height(150.dp),
-            textStyle = TextStyle(color=Color.Black),
+            textStyle = TextStyle(color=Color.White),
             singleLine = false
 
         )
+
+
         Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
-            Button(onClick = {}) { Text(text = "GO BACK") }
+            Button(onClick = {navController.popBackStack()}) { Text(text = "GO BACK") }
             Button(onClick = {patientViewModel.uploadPatient(imageUri.value,
                 name,
                 gender,
                 nationality,
                 age,
                 phone_number,
+                next_of_kin,
                 diagnosis,
-                context)
+                context,
+                navController)
             }) { Text(text = "SAVE") }
         }
 

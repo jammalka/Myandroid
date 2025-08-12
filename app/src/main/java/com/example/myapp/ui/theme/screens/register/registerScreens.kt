@@ -111,7 +111,7 @@ fun registerScreen(navController:NavController){
             placeholder ={ Text("Please enter username",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Person, contentDescription ="Person icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
-            textStyle = TextStyle(color=Color.Blue))
+            textStyle = TextStyle(color=Color.White))
 
         OutlinedTextField(value = fullname,
             onValueChange = {fullname=it},
@@ -119,14 +119,14 @@ fun registerScreen(navController:NavController){
             placeholder ={ Text("Please enter full name",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Person, contentDescription ="Person icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
-            textStyle = TextStyle(color=Color.Blue))
+            textStyle = TextStyle(color=Color.White))
         OutlinedTextField(value = email,
             onValueChange = {email=it},
             label = { Text("Enter Email",color=Color.Red) },
             placeholder ={ Text("Please enter email",color=Color.Red) },
             leadingIcon ={ Icon(Icons.Default.Email, contentDescription ="Email icon") },
             modifier = Modifier.fillMaxWidth(0.8f),
-            textStyle = TextStyle(color=Color.Blue),
+            textStyle = TextStyle(color=Color.White),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email))
         OutlinedTextField(value = password,
             onValueChange = {password=it},
@@ -135,7 +135,7 @@ fun registerScreen(navController:NavController){
             leadingIcon ={ Icon(Icons.Default.Lock , contentDescription ="Lock icon") },
             visualTransformation= PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f),
-            textStyle = TextStyle(color=Color.Blue),
+            textStyle = TextStyle(color=Color.White),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password))
         OutlinedTextField(value = confirmpassword,
             onValueChange = {confirmpassword=it},
@@ -144,7 +144,7 @@ fun registerScreen(navController:NavController){
             leadingIcon ={ Icon(Icons.Default.Lock, contentDescription ="Lock icon") },
             visualTransformation=PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(0.8f),
-            textStyle = TextStyle(color=Color.Blue),
+            textStyle = TextStyle(color=Color.White),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password))
         Spacer(modifier = Modifier.height(25.dp))
         val context= LocalContext.current
